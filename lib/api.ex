@@ -111,8 +111,8 @@ defmodule PayPal.API do
         {:ok, :not_found}
       {:ok, %{status_code: 204}} ->
         {:ok, nil}
-      {:ok, %{status_code: 400}} ->
-        {:error, :malformed_request}
+      {:ok, %{status_code: 400, body: body}} ->
+        {:error, :malformed_request, Poison.decode!(body, keys: :atoms)}
       {:ok, %{body: body}} = resp ->
         IO.inspect resp
         {:error, body}

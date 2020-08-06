@@ -1,0 +1,28 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "Bearer ",
+        "Content-Type": "application/json"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.sandbox.paypal.com/v1/catalogs/products"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"name\":\"AUTHENTICATION_FAILURE\",\"message\":\"<REMOVED>\"}]}",
+      "headers": {
+        "Cache-Control": "max-age=0, no-cache, no-store, must-revalidate",
+        "Content-Length": "244",
+        "Content-Type": "application/json",
+        "Date": "Thu, 06 Aug 2020 05:09:55 GMT",
+        "Paypal-Debug-Id": "5bea132e72a11"
+      },
+      "status_code": 401,
+      "type": "ok"
+    }
+  }
+]
