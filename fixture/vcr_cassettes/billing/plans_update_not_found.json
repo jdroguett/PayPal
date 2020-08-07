@@ -1,0 +1,28 @@
+[
+  {
+    "request": {
+      "body": "[{\"value\":7,\"path\":\"/payment_preferences/payment_failure_threshold\",\"op\":\"replace\"}]",
+      "headers": {
+        "Authorization": "***",
+        "Content-Type": "application/json"
+      },
+      "method": "patch",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.sandbox.paypal.com/v1/billing/plans/P-88888888AH040254KL4WMWGI"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"name\":\"RESOURCE_NOT_FOUND\",\"message\":\"The specified resource does not exist.\",\"debug_id\":\"7e083728b30e\",\"details\":[{\"issue\":\"INVALID_RESOURCE_ID\",\"description\":\"Invalid planId\"}],\"links\":[{\"href\":\"https://developer.paypal.com/docs/api/v1/billing/subscriptions#RESOURCE_NOT_FOUND\",\"rel\":\"information_link\",\"method\":\"GET\"}]}",
+      "headers": {
+        "Cache-Control": "max-age=0, no-cache, no-store, must-revalidate",
+        "Content-Length": "324",
+        "Content-Type": "application/json",
+        "Date": "Fri, 07 Aug 2020 03:47:05 GMT",
+        "Paypal-Debug-Id": "7e083728b30e"
+      },
+      "status_code": 404,
+      "type": "ok"
+    }
+  }
+]

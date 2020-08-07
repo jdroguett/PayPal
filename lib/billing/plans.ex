@@ -4,7 +4,7 @@ defmodule PayPal.Billing.Plans do
   """
 
   @doc """
-  Get billing plans, no plans returns an empty list
+  Get list plans, no plans returns an empty list
 
   Possible returns:
 
@@ -14,33 +14,45 @@ defmodule PayPal.Billing.Plans do
   ## Examples
 
       iex> PayPal.Billing.Plans.list
-      {:ok,
-          [%{create_time: "2017-05-02T08:04:20.411Z",
-            description: "Plan with regular and trial payment definitions.",
-            id: "P-3C560437P9994340RZAYE2OY",
-            links: [%{href: "https://api.sandbox.paypal.com/v1/payments/billing-plans/P-3C560437P9994340RZAYE2OY",
-               method: "GET", rel: "self"}],
-            name: "Plan with Regular and Trial Payment Definitions", state: "CREATED",
-            type: "FIXED", update_time: "2017-05-02T08:04:20.411Z"}]}
-
+      {:ok, [%{
+                    create_time: "2020-07-28T14:54:10Z",
+                    description: "Plan básico",
+                    id: "P-1CW53899KY2989938L4QDYEQ",
+                    links: [
+                      %{
+                        encType: "application/json",
+                        href:
+                          "https://api.sandbox.paypal.com/v1/billing/plans/P-1CW53899KY2989938L4QDYEQ",
+                        method: "GET",
+                        rel: "self"
+                      }
+                    ],
+                    name: "Plan básico",
+                    status: "ACTIVE",
+                    usage_type: "LICENSED"
+              }
+            ]}
 
   """
   @spec list :: {atom, any}
   def list do
-    case PayPal.API.get("payments/billing-plans") do
+    case PayPal.API.get("billing/plans") do
       {:ok, :no_content} ->
         {:ok, []}
+
       {:ok, :not_found} ->
         {:ok, nil}
+
       {:ok, %{plans: plans}} ->
         {:ok, plans}
+
       error ->
         error
     end
   end
 
   @doc """
-  Get a billing plan by ID.
+  Get a plan by ID.
 
   Possible returns:
 
@@ -50,35 +62,82 @@ defmodule PayPal.Billing.Plans do
 
   ## Examples
 
-      iex> PayPal.Billing.Plans.show(id)
-      {:ok,
-          %{create_time: "2017-05-02T08:04:20.411Z",
-            description: "Plan with regular and trial payment definitions.",
-            id: "P-3C560437P9994340RZAYE2OY",
-            links: [%{href: "https://api.sandbox.paypal.com/v1/payments/billing-plans/P-3C560437P9994340RZAYE2OY",
-               method: "GET", rel: "self"}],
-            name: "Plan with Regular and Trial Payment Definitions", state: "CREATED",
-            type: "FIXED", update_time: "2017-05-02T08:04:20.411Z"}}
-
+      iex> PayPal.Billing.Plans.show("P-1CW53899KY2989938L4QDYEQ")
+              {:ok,
+                %{
+                  billing_cycles: [
+                    %{
+                      frequency: %{interval_count: 1, interval_unit: "MONTH"},
+                      pricing_scheme: %{
+                        create_time: "2020-07-28T14:54:10Z",
+                        fixed_price: %{currency_code: "USD", value: "150.0"},
+                        update_time: "2020-07-28T14:54:10Z",
+                        version: 1
+                      },
+                      sequence: 1,
+                      tenure_type: "REGULAR",
+                      total_cycles: 12
+                    }
+                  ],
+                  create_time: "2020-07-28T14:54:10Z",
+                  description: "Plan básico",
+                  id: "P-1CW53899KY2989938L4QDYEQ",
+                  links: [
+                    %{
+                      encType: "application/json",
+                      href:
+                        "https://api.sandbox.paypal.com/v1/billing/plans/P-1CW53899KY2989938L4QDYEQ",
+                      method: "GET",
+                      rel: "self"
+                    },
+                    %{
+                      encType: "application/json",
+                      href:
+                        "https://api.sandbox.paypal.com/v1/billing/plans/P-1CW53899KY2989938L4QDYEQ",
+                      method: "PATCH",
+                      rel: "edit"
+                    },
+                    %{
+                      encType: "application/json",
+                      href:
+                        "https://api.sandbox.paypal.com/v1/billing/plans/P-1CW53899KY2989938L4QDYEQ/deactivate",
+                      method: "POST",
+                      rel: "self"
+                    }
+                  ],
+                  name: "Plan básico",
+                  payment_preferences: %{
+                    auto_bill_outstanding: true,
+                    payment_failure_threshold: 3,
+                    service_type: "PREPAID",
+                    setup_fee: %{currency_code: "USD", value: "0.0"},
+                    setup_fee_failure_action: "CONTINUE"
+                  },
+                  product_id: "PROD-8H491059A5228662S",
+                  quantity_supported: false,
+                  status: "ACTIVE",
+                  update_time: "2020-07-28T14:54:10Z",
+                  usage_type: "LICENSED"
+                }}
   """
-  @spec show(String.t) :: {atom, any}
+  @spec show(String.t()) :: {atom, any}
   def show(id) do
-    case PayPal.API.get("payments/billing-plans/#{id}") do
+    case PayPal.API.get("billing/plans/#{id}") do
       {:ok, :not_found} ->
         {:ok, nil}
+
       {:ok, plan} ->
         {:ok, plan}
+
       error ->
         error
     end
   end
 
   @doc """
-  Create a billing plan
+  Create a plan
 
-  [docs](https://developer.paypal.com/docs/api/payments.billing-plans#plan_create)
-
-  This can be a bit prickly so I highly suggest you check out the official docs (above), this maps 1:1 to the HTTP API.
+  [docs](https://developer.paypal.com/docs/api/subscriptions/v1/#plans_create)
 
   Possible returns:
 
@@ -87,50 +146,32 @@ defmodule PayPal.Billing.Plans do
 
   Example hash:
 
-    %{
-      name: "Plan with Regular and Trial Payment Definitions",
-      description: "Plan with regular and trial payment definitions.",
-      type: "FIXED",
-      payment_definitions: [%{
-        name: "Regular payment definition",
-        type: "REGULAR",
-        frequency: "MONTH",
-        frequency_interval: "2",
-        amount: %{
-          value: "100",
-          currency: "USD"
-        },
-        cycles: "12",
-        charge_models: [
-          %{
-            type: "SHIPPING",
-            amount: %{
-              value: "10",
-              currency: "USD"
-            }
+   plan = %{
+      product_id: "PROD-8H491059A5228662S",
+      name: "Premium Support",
+      description: "Premium Support Helpdrive.io",
+      quantity_supported: true,
+      billing_cycles: [
+        %{
+          sequence: 1,
+          tenure_type: "REGULAR",
+          total_cycles: 0,
+          frequency: %{
+            interval_unit: "MONTH",
+            interval_count: 1
           },
-          %{
-            type: "TAX",
-            amount: %{
-              value: "12",
-              currency: "USD"
+          pricing_scheme: %{
+            fixed_price: %{
+              value: 100.0,
+              currency_code: "USD"
             }
           }
-        ]
-      }],
-      merchant_preferences: %{
-        setup_fee: %{
-          value: "1",
-          currency: "USD"
-        },
-        return_url: "http://www.paypal.com",
-        cancel_url: "http://www.paypal.com/cancel",
-        auto_bill_amount: "YES",
-        initial_fail_amount_action: "CONTINUE",
-        max_fail_attempts: "0"
+        }
+      ],
+      payment_preferences: %{
+        payment_failure_threshold: 3
       }
     }
-
 
   ## Examples
 
@@ -139,92 +180,121 @@ defmodule PayPal.Billing.Plans do
 
 
   """
-  @spec create(%{
-    name: String.t,
-    description: String.t,
-    type: String.t,
-    payment_definitions: [%{
-      name: String.t,
-      type: String.t,
-      frequency_interval: String.t,
-      frequency: String.t,
-      cycles: String.t,
-      amount: %{
-        value: String.t,
-        currency: String.t
-      },
-      charge_models: [%{
-        type: String.t,
-        amount: %{
-          value: String.t,
-          currency: String.t
-        }
-      }],
-      merchant_preferences: %{
-        setup_fee: %{
-          amount: String.t,
-          currency: String.t
-        },
-        return_url: String.t,
-        cancel_url: String.t,
-        auto_bill_amount: String.t,
-        initial_fail_amount_action: String.t,
-        max_fail_attempts: String.t
-      }
-    }],
-  }) :: {atom, any}
+  @spec create(map) :: {atom, any}
   def create(plan) do
-    case PayPal.API.post("payments/billing-plans", plan) do
+    case PayPal.API.post("billing/plans", plan) do
       {:ok, data} ->
         {:ok, data}
+
       error ->
         error
     end
   end
 
   @doc """
-  Update a billing plan
+    Update a plan
 
-  [docs](https://developer.paypal.com/docs/api/payments.billing-plans#plan_update)
+    [docs](https://developer.paypal.com/docs/api/subscriptions/v1/#plans_patch)
 
-  This can be a bit prickly so I highly suggest you check out the official docs (above), this maps 1:1 to the HTTP API.
+    Possible returns:
 
-  This function takes an ID and a list of change operations (see the PayPal API docs, this is kind of a pain in the ass)
+    - {:ok, :no_content}
+    - {:error, reason}
 
-  Possible returns:
+    Example list of operations:
 
-  - {:ok, plan}
-  - {:error, reason}
-
-  Example list of operations:
-
-  [
-    %{
-      op: "replace",
-      path: "/merchant-preferences",
-      value: %{
-        cancel_url: "http://www.cancel.com",
-        setup_fee: {
-        value: "5",
-        currency: "USD"
-        }
+    operations = [
+      %{
+        op: "replace",
+        path: "/payment_preferences/payment_failure_threshold",
+        value: 7
       }
-    }
-  ]
+    ]
 
+    ## Examples
 
-  ## Examples
-
-      iex> PayPal.Billing.Plans.update(id, plan)
-      {:ok, plan}
+    iex> PayPal.Billing.Plans.update(id, operations)
+    {:ok, :no_content}
 
 
   """
-  @spec update(String.t, map) :: {atom, any}
-  def update(id, plan) do
-    case PayPal.API.patch("payments/billing-plans/#{id}", plan) do
+  @spec update(String.t(), map) :: {atom, any}
+  def update(id, operations) do
+    case PayPal.API.patch("billing/plans/#{id}", operations) do
       {:ok, data} ->
         {:ok, data}
+
+      error ->
+        error
+    end
+  end
+
+  @doc """
+  Activate plan
+
+  ## Examples
+
+    iex> PayPal.Billing.Plans.activate(id)
+    {:ok, :no_content}
+  """
+  @spec activate(String.t()) :: {atom, any}
+  def activate(id) do
+    case PayPal.API.post("billing/plans/#{id}/activate") do
+      {:ok, data} ->
+        {:ok, data}
+
+      error ->
+        error
+    end
+  end
+
+  @doc """
+  Deactivate plan
+
+  ## Examples
+
+    iex> PayPal.Billing.Plans.deactivate(id)
+    {:ok, :no_content}
+  """
+  @spec deactivate(String.t()) :: {atom, any}
+  def deactivate(id) do
+    case PayPal.API.post("billing/plans/#{id}/deactivate") do
+      {:ok, data} ->
+        {:ok, data}
+
+      error ->
+        error
+    end
+  end
+
+  @doc """
+  Update pricing schemes
+
+   pricing = %{
+      pricing_schemes: [
+        %{
+          billing_cycle_sequence: 1,
+          pricing_scheme: %{
+            fixed_price: %{
+              value: 50.0,
+              currency_code: "USD"
+            }
+          }
+        }
+      ]
+    }
+
+    ## Examples
+
+    iex> PayPal.Billing.Plans.update_pricing(pricing)
+    {:ok, :no_content}
+  """
+  @spec update_pricing(String.t(), map) :: {atom, any}
+  def update_pricing(id, pricing_schemes) do
+    case PayPal.API.post("billing/plans/#{id}/update-pricing-schemes", pricing_schemes) do
+      {:ok, data} ->
+        {:ok, data}
+
       error ->
         error
     end

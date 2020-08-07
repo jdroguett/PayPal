@@ -60,7 +60,7 @@ defmodule PayPalBillingAgreementsTest do
         }
       }
       resp = PayPal.Billing.Agreements.create(agreement)
-      assert resp == {:error, :malformed_request}
+      assert resp == {:error, :malformed_request, %{debug_id: "b87df3c0acedf", details: [%{field: "start_date", issue: "Agreement start date is required, should be valid and greater than the current date. Should be consistent with ISO 8601 Format"}], information_link: "https://developer.paypal.com/webapps/developer/docs/api/#VALIDATION_ERROR", message: "Invalid request. See details.", name: "VALIDATION_ERROR"}}
     end
   end
 
@@ -106,7 +106,7 @@ defmodule PayPalBillingAgreementsTest do
     }
     use_cassette "billing_agreements_update_agreement_error" do
       resp = PayPal.Billing.Agreements.update("I-YLRFBEKMH34T", op)
-      assert resp == {:error, :malformed_request}
+      assert resp == {:error, :malformed_request,  %{debug_id: "bf5af82e83308", information_link: "https://developer.paypal.com/webapps/developer/docs/api/#MALFORMED_REQUEST", message: "Incoming JSON request does not map to API request", name: "MALFORMED_REQUEST"}}
     end
   end
 
@@ -120,21 +120,21 @@ defmodule PayPalBillingAgreementsTest do
 #   test "set balance for agreement" do
 #     use_cassette "billing_agreement_set_balance" do
 #       resp = PayPal.Billing.Agreements.set_balance("I-YLRFBEKMH34T", %{value: "10", currency: "USD"})
-#       assert resp == {:ok, nil}
+#       assert resp == {:ok, :no_content}
 #     end
 #   end
 
   test "bill agreement for balance, fail because not enough balance" do
     use_cassette "billing_agreement_bill_balance_error" do
       resp = PayPal.Billing.Agreements.bill_balance("I-YLRFBEKMH34T", %{note: "something", amount: %{ value: "10", currency: "USD"}})
-      assert resp == {:error, :malformed_request}
+      assert resp == {:error, :malformed_request, %{debug_id: "dff878cb51209", information_link: "https://developer.paypal.com/webapps/developer/docs/api/#INVALID_OUTSTANDING_BALANCE", message: "Outstanding balance must be > 0", name: "INVALID_OUTSTANDING_BALANCE"}}
     end
   end
 
   test "cancel billing agreement" do
     use_cassette "billing_agreement_cancel" do
       resp = PayPal.Billing.Agreements.cancel("I-YLRFBEKMH34T", "test note")
-      assert resp == {:ok, nil}
+      assert resp == {:ok, :no_content}
     end
   end
 
@@ -158,14 +158,14 @@ defmodule PayPalBillingAgreementsTest do
   test "suspend an agreement" do
     use_cassette "billing_agreement_suspend" do
       resp = PayPal.Billing.Agreements.suspend "I-5TCE8UV35GT7", "some reason"
-      assert resp == {:ok, nil}
+      assert resp == {:ok, :no_content}
     end
   end
 
   test "reactivate an agreement" do
     use_cassette "billing_agreement_reactivate" do
       resp = PayPal.Billing.Agreements.reactivate "I-5TCE8UV35GT7", "some other reason"
-      assert resp == {:ok, nil}
+      assert resp == {:ok, :no_content}
     end
   end
 end

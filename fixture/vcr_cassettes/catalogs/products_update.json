@@ -1,0 +1,26 @@
+[
+  {
+    "request": {
+      "body": "[{\"value\":\"Premium video streaming service\",\"path\":\"/description\",\"op\":\"replace\"},{\"value\":\"SERVICES\",\"path\":\"/category\",\"op\":\"add\"}]",
+      "headers": {
+        "Authorization": "Bearer ***",
+        "Content-Type": "application/json"
+      },
+      "method": "patch",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.sandbox.paypal.com/v1/catalogs/products/PROD-18V34538TE186925R"
+    },
+    "response": {
+      "binary": false,
+      "body": "",
+      "headers": {
+        "Cache-Control": "max-age=0, no-cache, no-store, must-revalidate",
+        "Date": "Fri, 07 Aug 2020 02:44:56 GMT",
+        "Paypal-Debug-Id": "4b6d1ffb894ab"
+      },
+      "status_code": 204,
+      "type": "ok"
+    }
+  }
+]

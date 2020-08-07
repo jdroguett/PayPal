@@ -1,0 +1,26 @@
+[
+  {
+    "request": {
+      "body": "{\"pricing_schemes\":[{\"pricing_scheme\":{\"fixed_price\":{\"value\":50.0,\"currency_code\":\"USD\"}},\"billing_cycle_sequence\":1}]}",
+      "headers": {
+        "Authorization": "***",
+        "Content-Type": "application/json"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.sandbox.paypal.com/v1/billing/plans/P-41178878AH040254KL4WMWGI/update-pricing-schemes"
+    },
+    "response": {
+      "binary": false,
+      "body": "",
+      "headers": {
+        "Cache-Control": "max-age=0, no-cache, no-store, must-revalidate",
+        "Date": "Fri, 07 Aug 2020 04:18:11 GMT",
+        "Paypal-Debug-Id": "efdb1f730b16a"
+      },
+      "status_code": 204,
+      "type": "ok"
+    }
+  }
+]

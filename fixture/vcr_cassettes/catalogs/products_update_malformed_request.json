@@ -1,0 +1,28 @@
+[
+  {
+    "request": {
+      "body": "[{\"value\":\"Category not found\",\"path\":\"/category\",\"op\":\"replace\"}]",
+      "headers": {
+        "Authorization": "Bearer ***",
+        "Content-Type": "application/json"
+      },
+      "method": "patch",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.sandbox.paypal.com/v1/catalogs/products/PROD-18V34538TE186925R"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"name\":\"INVALID_REQUEST\",\"message\":\"Request is not well-formed, syntactically incorrect, or violates schema.\",\"debug_id\":\"7723da4a4a776\",\"details\":[{\"field\":\"/0/value\",\"value\":\"Category not found\",\"location\":\"body\",\"issue\":\"INVALID_PARAMETER_VALUE\",\"description\":\"The value of a field is invalid.\"}],\"links\":[{\"href\":\"https://developer.paypal.com/docs/api/v1/billing/subscriptions#INVALID_REQUEST\",\"rel\":\"information_link\",\"method\":\"GET\"}]}",
+      "headers": {
+        "Cache-Control": "max-age=0, no-cache, no-store, must-revalidate",
+        "Content-Length": "441",
+        "Content-Type": "application/json",
+        "Date": "Fri, 07 Aug 2020 02:58:24 GMT",
+        "Paypal-Debug-Id": "7723da4a4a776"
+      },
+      "status_code": 400,
+      "type": "ok"
+    }
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "request": {
+      "body": "{}",
+      "headers": {
+        "Authorization": "***",
+        "Content-Type": "application/json"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.sandbox.paypal.com/v1/billing/plans"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"name\":\"INVALID_REQUEST\",\"message\":\"Request is not well-formed, syntactically incorrect, or violates schema.\",\"debug_id\":\"7f177474e8d54\",\"details\":[{\"field\":\"/payment_preferences\",\"location\":\"body\",\"issue\":\"MISSING_REQUIRED_PARAMETER\",\"description\":\"A required field is missing.\"},{\"field\":\"/product_id\",\"location\":\"body\",\"issue\":\"MISSING_REQUIRED_PARAMETER\",\"description\":\"A required field is missing.\"},{\"field\":\"/name\",\"location\":\"body\",\"issue\":\"MISSING_REQUIRED_PARAMETER\",\"description\":\"A required field is missing.\"},{\"field\":\"/billing_cycles\",\"location\":\"body\",\"issue\":\"MISSING_REQUIRED_PARAMETER\",\"description\":\"A required field is missing.\"}],\"links\":[{\"href\":\"https://developer.paypal.com/docs/api/v1/billing/subscriptions#INVALID_REQUEST\",\"rel\":\"information_link\",\"method\":\"GET\"}]}",
+      "headers": {
+        "Cache-Control": "max-age=0, no-cache, no-store, must-revalidate",
+        "Content-Length": "793",
+        "Content-Type": "application/json",
+        "Date": "Fri, 07 Aug 2020 03:35:44 GMT",
+        "Paypal-Debug-Id": "7f177474e8d54"
+      },
+      "status_code": 400,
+      "type": "ok"
+    }
+  }
+]

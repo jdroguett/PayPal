@@ -87,7 +87,7 @@ defmodule PayPalPaymentsTest do
   test "create a payment error" do
     use_cassette "payments_create_payment_error" do
       resp = PayPal.Payments.Payments.create(nil)
-      assert resp == {:error, :malformed_request}
+      assert resp == {:error, :malformed_request, %{debug_id: "9a24956b454c4", details: [%{field: "payment", issue: "Value is invalid."}], information_link: "https://developer.paypal.com/webapps/developer/docs/api/#VALIDATION_ERROR", message: "Invalid request. See details.", name: "VALIDATION_ERROR"}}
     end
   end
 
@@ -131,7 +131,7 @@ defmodule PayPalPaymentsTest do
           country_code: "DE"
         }
       }])
-      assert resp == {:error, :malformed_request}
+      assert resp == {:error, :malformed_request, %{debug_id: "33d7c947acf2f", details: [%{field: "purchase_units", issue: "Item currency codes should be same as the transaction currency code in all buckets"}, %{field: "purchase_units[0]", issue: "Item amount must add up to specified amount subtotal (or total if amount details not specified)"}], information_link: "https://developer.paypal.com/docs/api/payments/#errors", message: "Invalid request - see details", name: "VALIDATION_ERROR"}}
     end
   end
 
@@ -149,7 +149,7 @@ defmodule PayPalPaymentsTest do
           country_code: "DE"
         }
       }])
-      assert resp == {:error, :malformed_request}
+      assert resp == {:error, :malformed_request, %{debug_id: "5f21028b401de", information_link: "https://developer.paypal.com/docs/api/payments/#errors", message: "Payment has been done already for this cart.", name: "PAYMENT_ALREADY_DONE"}}
     end
   end
 

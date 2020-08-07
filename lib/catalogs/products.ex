@@ -28,19 +28,19 @@ defmodule PayPal.Catalogs.Products do
                 name: "Product"
               }
             ]}
-
-
-
   """
   @spec list :: {atom, any}
   def list do
     case PayPal.API.get("catalogs/products") do
       {:ok, :no_content} ->
         {:ok, []}
+
       {:ok, :not_found} ->
         {:ok, nil}
+
       {:ok, %{products: products}} ->
         {:ok, products}
+
       error ->
         error
     end
@@ -83,18 +83,19 @@ defmodule PayPal.Catalogs.Products do
         }
       }
   """
-  @spec show(String.t) :: {atom, any}
+  @spec show(String.t()) :: {atom, any}
   def show(id) do
     case PayPal.API.get("catalogs/products/#{id}") do
       {:ok, :not_found} ->
         {:ok, nil}
+
       {:ok, product} ->
         {:ok, product}
+
       error ->
         error
     end
   end
-
 
   @doc """
   Create a product
@@ -125,18 +126,61 @@ defmodule PayPal.Catalogs.Products do
 
   """
   @spec create(%{
-    id: String.t,
-    name: String.t,
-    description: String.t,
-    type: String.t,
-    category: String.t,
-    image_url: String.t,
-    home_url: String.t
-  }) :: {atom, any}
+          id: String.t(),
+          name: String.t(),
+          description: String.t(),
+          type: String.t(),
+          category: String.t(),
+          image_url: String.t(),
+          home_url: String.t()
+        }) :: {atom, any}
   def create(product) do
     case PayPal.API.post("catalogs/products", product) do
       {:ok, data} ->
         {:ok, data}
+
+      error ->
+        error
+    end
+  end
+
+  @doc """
+    Update a product
+
+    [docs](https://developer.paypal.com/docs/api/catalog-products/v1/#products_patch)
+
+    Possible returns:
+
+    - {:ok, product}
+    - {:error, reason}
+
+    Example list of operations:
+    [
+      %{
+        op: "replace",
+        path: "/description",
+        value: "Premium video streaming service"
+      },
+      %{
+        op: "add",
+        path: "/category",
+        value: "Premium"
+      }
+    ]
+
+    ## Examples
+
+    iex> PayPal.Catalogs.Products.update(id, operations)
+    {:ok, product}
+
+
+  """
+  @spec update(String.t(), map) :: {atom, any}
+  def update(id, operations) do
+    case PayPal.API.patch("catalogs/products/#{id}", operations) do
+      {:ok, data} ->
+        {:ok, data}
+
       error ->
         error
     end

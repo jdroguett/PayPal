@@ -1,0 +1,28 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "***",
+        "Content-Type": "application/json"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.sandbox.paypal.com/v1/billing/plans/P-1CW53899KY2989938L4QDYEQ"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"id\":\"P-1CW53899KY2989938L4QDYEQ\",\"product_id\":\"PROD-8H491059A5228662S\",\"name\":\"Plan básico\",\"status\":\"ACTIVE\",\"description\":\"Plan básico\",\"usage_type\":\"LICENSED\",\"billing_cycles\":[{\"pricing_scheme\":{\"version\":1,\"fixed_price\":{\"currency_code\":\"USD\",\"value\":\"150.0\"},\"create_time\":\"2020-07-28T14:54:10Z\",\"update_time\":\"2020-07-28T14:54:10Z\"},\"frequency\":{\"interval_unit\":\"MONTH\",\"interval_count\":1},\"tenure_type\":\"REGULAR\",\"sequence\":1,\"total_cycles\":12}],\"payment_preferences\":{\"service_type\":\"PREPAID\",\"auto_bill_outstanding\":true,\"setup_fee\":{\"currency_code\":\"USD\",\"value\":\"0.0\"},\"setup_fee_failure_action\":\"CONTINUE\",\"payment_failure_threshold\":3},\"quantity_supported\":false,\"create_time\":\"2020-07-28T14:54:10Z\",\"update_time\":\"2020-07-28T14:54:10Z\",\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/billing/plans/P-1CW53899KY2989938L4QDYEQ\",\"rel\":\"self\",\"method\":\"GET\",\"encType\":\"application/json\"},{\"href\":\"https://api.sandbox.paypal.com/v1/billing/plans/P-1CW53899KY2989938L4QDYEQ\",\"rel\":\"edit\",\"method\":\"PATCH\",\"encType\":\"application/json\"},{\"href\":\"https://api.sandbox.paypal.com/v1/billing/plans/P-1CW53899KY2989938L4QDYEQ/deactivate\",\"rel\":\"self\",\"method\":\"POST\",\"encType\":\"application/json\"}]}",
+      "headers": {
+        "Cache-Control": "max-age=0, no-cache, no-store, must-revalidate",
+        "Content-Length": "1208",
+        "Content-Type": "application/json",
+        "Date": "Fri, 07 Aug 2020 03:21:16 GMT",
+        "Paypal-Debug-Id": "7114f6290f484"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

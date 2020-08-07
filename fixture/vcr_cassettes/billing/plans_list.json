@@ -1,0 +1,28 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "***",
+        "Content-Type": "application/json"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.sandbox.paypal.com/v1/billing/plans"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"plans\":[{\"id\":\"P-1CW53899KY2989938L4QDYEQ\",\"name\":\"Plan básico\",\"status\":\"ACTIVE\",\"description\":\"Plan básico\",\"usage_type\":\"LICENSED\",\"create_time\":\"2020-07-28T14:54:10Z\",\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/billing/plans/P-1CW53899KY2989938L4QDYEQ\",\"rel\":\"self\",\"method\":\"GET\",\"encType\":\"application/json\"}]},{\"id\":\"P-1DD14936WL472032RL4QDYFA\",\"name\":\"Plan profesional\",\"status\":\"ACTIVE\",\"description\":\"Plan profesional\",\"usage_type\":\"LICENSED\",\"create_time\":\"2020-07-28T14:54:12Z\",\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/billing/plans/P-1DD14936WL472032RL4QDYFA\",\"rel\":\"self\",\"method\":\"GET\",\"encType\":\"application/json\"}]},{\"id\":\"P-10M23173AE867803TL4VOGDA\",\"name\":\"Plan estándar\",\"status\":\"ACTIVE\",\"description\":\"Plan estándar\",\"usage_type\":\"LICENSED\",\"create_time\":\"2020-08-05T16:49:16Z\",\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/billing/plans/P-10M23173AE867803TL4VOGDA\",\"rel\":\"self\",\"method\":\"GET\",\"encType\":\"application/json\"}]}],\"links\":[{\"href\":\"https://api.sandbox.paypal.com/v1/billing/plans?page_size=10&page=1\",\"rel\":\"self\",\"method\":\"GET\",\"encType\":\"application/json\"}]}",
+      "headers": {
+        "Cache-Control": "max-age=0, no-cache, no-store, must-revalidate",
+        "Content-Length": "1126",
+        "Content-Type": "application/json",
+        "Date": "Fri, 07 Aug 2020 03:11:01 GMT",
+        "Paypal-Debug-Id": "e6d5ae649b2f3"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
